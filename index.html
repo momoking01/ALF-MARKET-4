@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unser Supermarkt – Social Links</title>
+  <meta name="description" content="Folge unserem Supermarkt auf Facebook, TikTok & Instagram oder schreibe uns auf WhatsApp." />
+
+  <!-- Icons -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- QR Code generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --bg2:#111b33;
+      --card: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100svh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, #2a4cff55, transparent 60%),
+        radial-gradient(900px 600px at 90% 30%, #ff7a1850, transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, #00d1b245, transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      display:grid;
+      place-items:center;
+      padding:22px;
+    }
+    .wrap{
+      width:min(980px, 100%);
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 880px){
+      .wrap{grid-template-columns: 1fr; }
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow:hidden;
+    }
+    .hero{
+      padding:28px;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .badge i{color:#ffd166}
+    h1{
+      margin:16px 0 8px;
+      font-size: clamp(26px, 3.3vw, 40px);
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+    p{
+      margin:0 0 18px;
+      color: var(--muted);
+      line-height:1.5;
+      font-size: 15.5px;
+    }
+
+    .links{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      width:100%;
+      padding:14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      text-decoration:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.24);
+    }
+    .btn:active{transform: translateY(0px) scale(.99);}
+    .left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .icon{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius: 14px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 20px;
+    }
+    .label{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      line-height:1.1;
+    }
+    .label strong{font-size:16px}
+    .label span{font-size:13px; color: var(--muted);}
+    .chev{color: rgba(255,255,255,.55);}
+
+    .qr{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .qrTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .qr h2{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.01em;
+    }
+    .small{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height:1.4;
+    }
+    .qrBox{
+      display:grid;
+      place-items:center;
+      padding:16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      min-height: 240px;
+    }
+    #qrcode{
+      padding:10px;
+      background: #fff;
+      border-radius: 14px;
+    }
+    .tools{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .toolBtn{
+      cursor:pointer;
+      border:none;
+      color: var(--text);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      padding:10px 12px;
+      border-radius: 14px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      font-weight:600;
+      font-size: 14px;
+    }
+    .toolBtn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.13);
+      border-color: rgba(255,255,255,.24);
+    }
+    .foot{
+      margin-top:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color: rgba(255,255,255,.55);
+      font-size: 12.5px;
+    }
+    .foot a{color: rgba(255,255,255,.75)}
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card hero">
+      <div class="badge"><i class="fa-solid fa-store"></i> Social Media • Schnell & einfach</div>
+
+      <!-- ÄNDERN: Name + kurzer Text -->
+      <h1 id="shopName">[Dein Ladenname]</h1>
+      <p id="shopText">
+        Arabisches Brot • Gemüse • Obst • Gewürze – folge uns oder schreib uns direkt.
+      </p>
+
+      <div class="links">
+        <!-- ÄNDERN: Links unten in <script> (CONFIG) -->
+        <a class="btn" id="facebookBtn" href="#" target="_blank" rel="noopener">
+          <div class="left">
+            <div class="icon"><i class="fa-brands fa-facebook-f"></i></div>
+            <div class="label">
+              <strong>Facebook</strong>
+              <span>Unsere Seite</span>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right chev"></i>
+        </a>
+
+        <a class="btn" id="tiktokBtn" href="#" target="_blank" rel="noopener">
+          <div class="left">
+            <div class="icon"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="label">
+              <strong>TikTok</strong>
+              <span>Videos & Angebote</span>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right chev"></i>
+        </a>
+
+        <a class="btn" id="instagramBtn" href="#" target="_blank" rel="noopener">
+          <div class="left">
+            <div class="icon"><i class="fa-brands fa-instagram"></i></div>
+            <div class="label">
+              <strong>Instagram</strong>
+              <span>Neuigkeiten & Bilder</span>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right chev"></i>
+        </a>
+
+        <a class="btn" id="whatsappBtn" href="#" target="_blank" rel="noopener">
+          <div class="left">
+            <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="label">
+              <strong>WhatsApp</strong>
+              <span>Schnell schreiben</span>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right chev"></i>
+        </a>
+      </div>
+
+      <div class="foot">
+        <span>© <span id="year"></span> <span id="shopName2">[Dein Ladenname]</span></span>
+        <span>QR-Code rechts scannen</span>
+      </div>
+    </section>
+
+    <aside class="card qr">
+      <div class="qrTop">
+        <div>
+          <h2>QR-Code für diese Seite</h2>
+          <p class="small">Zum Drucken: QR-Code downloaden und auf Flyer/Poster kleben.</p>
+        </div>
+      </div>
+
+      <div class="qrBox">
+        <div id="qrcode" aria-label="QR-Code"></div>
+      </div>
+
+      <div class="tools">
+        <button class="toolBtn" id="downloadBtn"><i class="fa-solid fa-download"></i> QR als PNG</button>
+        <button class="toolBtn" id="copyBtn"><i class="fa-solid fa-copy"></i> Seiten-Link kopieren</button>
+      </div>
+
+      <p class="small" id="pageUrlHint"></p>
+    </aside>
+  </main>
+
+  <script>
+    // =========================
+    // CONFIG – HIER ÄNDERN
+    // =========================
+    const CONFIG = {
+      shopName: "Al Baraka Market", // <- Name
+      shopText: "Arabisches Brot • Gemüse • Obst • Gewürze – folge uns oder schreib uns direkt.",
+
+      facebookUrl: "https://www.facebook.com/DEINPAGE",
+      tiktokUrl: "https://www.tiktok.com/@DEINNAME",
+      instagramUrl: "https://www.instagram.com/DEINNAME/",
+
+      // WhatsApp: deutsche Nummer im internationalen Format OHNE + (z.B. 4917612345678)
+      whatsappNumber: "4917612345678",
+
+      // Optional: vorgefüllter WhatsApp-Text
+      whatsappText: "Hallo! Ich habe eine Frage zu euren Produkten.",
+
+      // WICHTIG: Hier kommt später die echte URL rein, nachdem du die Seite veröffentlicht hast
+      pageUrl: "https://DEINE-SEITE-URL-HIER-EINTRAGEN"
+    };
+
+    // =========================
+    // Page content
+    // =========================
+    document.getElementById("shopName").textContent = CONFIG.shopName;
+    document.getElementById("shopName2").textContent = CONFIG.shopName;
+    document.getElementById("shopText").textContent = CONFIG.shopText;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Buttons
+    const waLink = "https://wa.me/" + encodeURIComponent(CONFIG.whatsappNumber) +
+      (CONFIG.whatsappText ? ("?text=" + encodeURIComponent(CONFIG.whatsappText)) : "");
+
+    document.getElementById("facebookBtn").href = CONFIG.facebookUrl;
+    document.getElementById("tiktokBtn").href = CONFIG.tiktokUrl;
+    document.getElementById("instagramBtn").href = CONFIG.instagramUrl;
+    document.getElementById("whatsappBtn").href = waLink;
+
+    // =========================
+    // QR Code
+    // =========================
+    const pageUrl = CONFIG.pageUrl;
+    document.getElementById("pageUrlHint").textContent = "Link: " + pageUrl;
+
+    // Render QR
+    const qrEl = document.getElementById("qrcode");
+    qrEl.innerHTML = "";
+    const qr = new QRCode(qrEl, {
+      text: pageUrl,
+      width: 210,
+      height: 210,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // =========================
+    // Tools
+    // =========================
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(pageUrl);
+        alert("Link kopiert!");
+      }catch(e){
+        prompt("Kopiere den Link:", pageUrl);
+      }
+    });
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      // qrcodejs renders an <img> or <canvas> depending on browser
+      const img = qrEl.querySelector("img");
+      const canvas = qrEl.querySelector("canvas");
+
+      let dataUrl = null;
+      if (canvas) dataUrl = canvas.toDataURL("image/png");
+      if (img) dataUrl = img.src;
+
+      if(!dataUrl){
+        alert("QR konnte nicht exportiert werden.");
+        return;
+      }
+
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = (CONFIG.shopName || "qr-code").replace(/\s+/g, "-").toLowerCase() + "-qr.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+  </script>
+</body>
+</html>
